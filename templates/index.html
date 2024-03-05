@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Churn Prediction in Telecom Industry</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: scroll;
+      flex-direction: column;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4caf50;
+      margin-bottom: 30px;
+      font-size: 40px;
+    }
+
+    /* Add some spacing between form elements */
+    form>* {
+      margin-bottom: 15px;
+    }
+
+    /* Add some styling to the fill random values button */
+    #fillRandomValuesBtn {
+      background-color: #2196f3;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+    }
+
+    #fillRandomValuesBtn:hover {
+      background-color: #1e87eb;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 style="text-align: center">
+    Customer Churn Prediction in Telecom Industry
+  </h1>
+
+  <form id="form" action="/predict" method="POST">
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="1">Male</option>
+      <option value="0">Female</option>
+    </select>
+
+    <label for="seniorCitizen">Senior Citizen:</label>
+    <select id="seniorCitizen" name="seniorCitizen" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="partner">Partner:</label>
+    <select id="partner" name="partner" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="dependents">Dependents:</label>
+    <select id="dependents" name="dependents" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="tenure">Tenure (Months):</label>
+    <input type="number" id="tenure" name="tenure" required />
+
+    <label for="phoneService">Phone Service:</label>
+    <select id="phoneService" name="phoneService" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="multipleLines">Multiple Lines:</label>
+    <select id="multipleLines" name="multipleLines" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="internetService">Internet Service:</label>
+    <select id="internetService" name="internetService" required>
+      <option value="0">DSL</option>
+      <option value="1">Fiber Optic</option>
+      <option value="2">No Internet</option>
+    </select>
+
+    <label for="onlineSecurity">Online Security:</label>
+    <select id="onlineSecurity" name="onlineSecurity" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="onlineBackup">Online Backup:</label>
+    <select id="onlineBackup" name="onlineBackup" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="deviceProtection">Device Protection:</label>
+    <select id="deviceProtection" name="deviceProtection" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="techSupport">Tech Support:</label>
+    <select id="techSupport" name="techSupport" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="streamingTV">Streaming TV:</label>
+    <select id="streamingTV" name="streamingTV" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="streamingMovies">Streaming Movies:</label>
+    <select id="streamingMovies" name="streamingMovies" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="contract">Contract:</label>
+    <select id="contract" name="contract" required>
+      <option value="0">Month-to-Month</option>
+      <option value="1">One Year</option>
+      <option value="2">Two Year</option>
+    </select>
+
+    <label for="paperlessBilling">Paperless Billing:</label>
+    <select id="paperlessBilling" name="paperlessBilling" required>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+
+    <label for="paymentMethod">Payment Method:</label>
+    <select id="paymentMethod" name="paymentMethod" required>
+      <option value="0">Bank Transfer</option>
+      <option value="1">Credit Card</option>
+      <option value="2">Electronic Check</option>
+      <option value="3">Mailed Check</option>
+    </select>
+
+    <label for="monthlyCharges">Monthly Charges:</label>
+    <input type="number" id="monthlyCharges" name="monthlyCharges" step="0.01" required />
+
+    <label for="totalCharges">Total Charges:</label>
+    <input type="number" id="totalCharges" name="totalCharges" step="0.01" required />
+
+    <button type="button" id="fillRandomValuesBtn" onclick="fillRandomValues()">
+      Fill Random Values
+    </button>
+    <button type="submit">Predict Churn</button>
+  </form>
+
+  <script>
+    function fillRandomValues() {
+      document.getElementById("gender").value = getRandomInt(0, 1);
+      document.getElementById("seniorCitizen").value = getRandomInt(0, 1);
+      document.getElementById("partner").value = getRandomInt(0, 1);
+      document.getElementById("dependents").value = getRandomInt(0, 1);
+      document.getElementById("tenure").value = getRandomInt(1, 120); // Assuming tenure can be between 1 and 120 months
+      document.getElementById("phoneService").value = getRandomInt(0, 1);
+      document.getElementById("multipleLines").value = getRandomInt(0, 1);
+      document.getElementById("internetService").value = getRandomInt(0, 2);
+      document.getElementById("onlineSecurity").value = getRandomInt(0, 1);
+      document.getElementById("onlineBackup").value = getRandomInt(0, 1);
+      document.getElementById("deviceProtection").value = getRandomInt(0, 1);
+      document.getElementById("techSupport").value = getRandomInt(0, 1);
+      document.getElementById("streamingTV").value = getRandomInt(0, 1);
+      document.getElementById("streamingMovies").value = getRandomInt(0, 1);
+      document.getElementById("contract").value = getRandomInt(0, 2);
+      document.getElementById("paperlessBilling").value = getRandomInt(0, 1);
+      document.getElementById("paymentMethod").value = getRandomInt(0, 3);
+      document.getElementById("monthlyCharges").value = getRandomFloat(
+        20,
+        100
+      ).toFixed(2); // Assuming monthly charges range between 20 and 100
+      document.getElementById("totalCharges").value = getRandomFloat(
+        100,
+        5000
+      ).toFixed(2); // Assuming total charges range between 100 and 5000
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getRandomFloat(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+  </script>
+</body>
+
+</html>
